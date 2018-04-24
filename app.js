@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.disable('x-powered-by');
+
 var contact = require('./routes/contact');
 app.use('/contact', contact);
 

@@ -3,11 +3,13 @@ var router = express.Router();
 // Node Mail
 var nodemailer = require('nodemailer');
 // myUser Info
-var MailAccount = require('../credentials');
+// var MailAccount = require('../credentials');
 // Use Csurf
 var csurf = require('csurf')
 // setup route middlewares
 var csrfProtection = csurf({ cookie: true })
+
+require('dotenv').config()
 
 router.get('/' , csrfProtection, function(req, res) {
     res.render('contact' , { csrfToken: req.csrfToken() });
@@ -22,15 +24,15 @@ router.post('/post',csrfProtection, function(req, res) {
     var data = req.body;
     console.log(data)       
     */
-    let myMailPass = MailAccount.myMailPass;
+    //let myMailPass = MailAccount.myMailPass;
 
     let transporter = nodemailer.createTransport({
         host:'smtp.gmail.com',
         port: 465,
         secure: true, // use SSL
         auth: {
-            user: 'k3vinwei@gmail.com', 
-            pass: myMailPass 
+            user : process.env.gmailUser,
+            pass : process.env.gmailPassword
         }
     });
     let mailOptions = {
