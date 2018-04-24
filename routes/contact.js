@@ -26,6 +26,8 @@ router.post('/post',csrfProtection, function(req, res) {
     */
     //let myMailPass = MailAccount.myMailPass;
 
+    console.log(process.env.gmailUser + '   ' + process.env.gmailPassword)
+
     let transporter = nodemailer.createTransport({
         host:'smtp.gmail.com',
         port: 465,
