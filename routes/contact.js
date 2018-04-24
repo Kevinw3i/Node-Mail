@@ -34,10 +34,10 @@ router.post('/post',csrfProtection, function(req, res) {
         }
     });
     let mailOptions = {
-        from: '"Kevin 👻"<tkevin0414@gmail.com>', // sender address
+        from: req.body.email, // sender address
         to: 'k3vinwei@gmail.com',                // list of receivers
-        subject: 'Hello ✔', 
-        text: 'text'
+        subject: req.body.title, 
+        text: req.body.description + '   ' + req.body.email
     };    
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
