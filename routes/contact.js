@@ -4,16 +4,20 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 // myUser Info
 var MailAccount = require('../credentials');
+// Use Csurf
+var csurf = require('csurf')
+// setup route middlewares
+var csrfProtection = csurf({ cookie: true })
 
-router.get('/', function(req, res) {
-    res.render('contact');
+router.get('/' , csrfProtection, function(req, res) {
+    res.render('contact' , { csrfToken: req.csrfToken() });
 });
 
-router.get('/review', function(req, res) {
-    res.render('contactReview');
+router.get('/review', csrfProtection, function(req, res) {
+    res.render('contactReview', { csrfToken: req.csrfToken() });
 });
 
-router.post('/post', function(req, res) {
+router.post('/post',csrfProtection, function(req, res) {
     /*
     var data = req.body;
     console.log(data)       
